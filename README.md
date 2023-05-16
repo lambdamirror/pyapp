@@ -1,2 +1,2 @@
 # pyapp
-Restful service for backend api in Python
+Base app for RESTful services and files management in python

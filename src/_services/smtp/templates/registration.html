@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+
+<table cellpadding="0" cellspacing="0" width="100%" style="padding-left: 4%; padding-right: 4%">
+
+    <tr>
+        <td colspan="3" height="20"></td>
+    </tr>
+
+    <tr>
+        <td colspan="3" align="left">
+            <p>Hi <b>{{first_name}}</b>,</p>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td colspan="3" align="left">
+            <p>
+                Thanks for creating an account with PhtCreative Studio. 
+                Please verify your email address by clicking the button below.
+            </p>
+
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="{{url}}" target="_blank">Verify email address</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+</table>
+
+{% endblock %}

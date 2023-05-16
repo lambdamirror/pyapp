@@ -1,0 +1,104 @@
+[
+    {
+        "provider": "_prepaid_account",
+        "currency": "USD",
+        "starting_balance": 0,
+        "fee_policy": [],
+        "status": "INACTIVE"
+    },
+    {
+        "provider": "_prepaid_account",
+        "currency": "AUD",
+        "starting_balance": 0,
+        "fee_policy": [],
+        "status": "INACTIVE"
+    },
+    {
+        "provider": "TCB",
+        "currency": "USD",
+        "starting_balance": 0.0,
+        "fee_policy": []
+    },
+    {
+        "provider": "TCB Business",
+        "currency": "VND",
+        "starting_balance": 0.0,
+        "fee_policy": []
+    },
+    {
+        "provider": "TCB",
+        "currency": "VND",
+        "starting_balance": 79122720.0,
+        "fee_policy": []
+    },
+    {
+        "provider": "TCB Business",
+        "currency": "AUD",
+        "starting_balance": 0.0,
+        "fee_policy": []
+    },
+    {
+        "provider": "TCB Business",
+        "currency": "USD",
+        "starting_balance": 0.0,
+        "fee_policy": []
+    },
+    {
+        "provider": "Paypal",
+        "currency": "USD",
+        "starting_balance": 1.48,
+        "fee_policy": [
+            {
+                "description": "fixed transaction fees",
+                "type": "absolute",
+                "amount": 0.3
+            },
+            {
+                "description": "fixed percentage fees",
+                "type": "percentage",
+                "amount": 0.044
+            }
+        ]
+    },
+    {
+        "provider": "Paypal",
+        "currency": "AUD",
+        "starting_balance": 1.49,
+        "fee_policy": [
+            {
+                "description": "fixed transaction fees",
+                "type": "absolute",
+                "amount": 0.3
+            },
+            {
+                "description": "fixed percentage fees",
+                "type": "percentage",
+                "amount": 0.044
+            }
+        ]
+    },
+    {
+        "provider": "Paypal Business",
+        "currency": "USD",
+        "starting_balance": 0,
+        "fee_policy": [
+            {
+                "description": "fixed transaction fees",
+                "type": "absolute",
+                "amount": 0.3
+            }
+        ]
+    },
+    {
+        "provider": "Paypal Business",
+        "currency": "AUD",
+        "starting_balance": 0,
+        "fee_policy": [
+            {
+                "description": "fixed transaction fees",
+                "type": "absolute",
+                "amount": 0.3
+            }
+        ]
+    }
+]
