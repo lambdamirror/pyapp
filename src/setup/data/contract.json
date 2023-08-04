@@ -1,0 +1,376 @@
+[
+    {
+        "name": "Level 2 - Client",
+        "product": "Single Edits",
+        "price": {
+            "amount": 0.6,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 4000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 1000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Basic Edits",
+        "price": {
+            "amount": 0.8,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 5000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 1000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Medium Edits",
+        "price": {
+            "amount": 1.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 7000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 1000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Advanced Edits",
+        "price": {
+            "amount": 2.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 12000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 2000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Twilight Edits",
+        "price": {
+            "amount": 1.5,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 12000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 3000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Headshot Edits",
+        "price": {
+            "amount": 1.5,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 15000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 2000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Additional Edits",
+        "price": {
+            "amount": 0.3,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 2000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 500.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Day to Dusk",
+        "price": {
+            "amount": 5.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 40000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 5000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Minor Retouch",
+        "price": {
+            "amount": 1.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 8000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 2000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Basic Retouch",
+        "price": {
+            "amount": 2.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 15000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 2000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Medium Retouch",
+        "price": {
+            "amount": 5.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 35000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 4000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Hard Retouch",
+        "price": {
+            "amount": 7.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 60000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 6000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Extra Hard Retouch",
+        "price": {
+            "amount": 10.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 90000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 10000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Decluttering",
+        "price": {
+            "amount": 10.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 90000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 10000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Virtual Staging",
+        "price": {
+            "amount": 15.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 140000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 0.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Clipping Path",
+        "price": {
+            "amount": 0.8,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 8000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 1000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Panorama Edits",
+        "price": {
+            "amount": 0.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 5000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 1000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Panorama Stitching",
+        "price": {
+            "amount": 4.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 10000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 4000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Video - Basic Edits",
+        "price": {
+            "amount": 30.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 300000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 30000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Video - Medium Edits",
+        "price": {
+            "amount": 40.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 400000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 40000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Video - Advanced Edits",
+        "price": {
+            "amount": 50.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 500000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 50000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    },
+    {
+        "name": "Level 2 - Client",
+        "product": "Animated Video Edits",
+        "price": {
+            "amount": 120.0,
+            "currency": "USD"
+        },
+        "edit_rate": {
+            "amount": 1000000.0,
+            "currency": "VND"
+        },
+        "qc_rate": {
+            "amount": 100000.0,
+            "currency": "VND"
+        },
+        "is_default": true
+    }
+]

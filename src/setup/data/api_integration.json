@@ -1,0 +1,120 @@
+[
+    {
+        "name": "company_billing_info",
+        "value": [
+            "Tax Number: 0109675191",
+            "[none]",
+            "[none]",
+            "3rd Floor, 35-50 Nguyen Huu Tho",
+            "Invoice No.",
+            "[invoice_id]",
+            "Hoang Liet, Hoang Mai, Hanoi",
+            "Invoice Date",
+            "[invoice_date]",
+            "Vietnam",
+            "Jobs Date",
+            "[jobs_from]",
+            "info@phtcreative.com",
+            "[none]",
+            "[jobs_to]",
+            "P: +84 368494711",
+            "[none]",
+            "[none]"
+        ]
+    },
+    {
+        "name": "company_name",
+        "value": "PHTCREATIVE CO., LTD"
+    },
+    {
+        "name": "exchange_rate:AUDVND",
+        "value": 14749.5528
+    },
+    {
+        "name": "exchange_rate:USDVND",
+        "value": 22819.25
+    },
+    {
+        "name": "google_search_skip_number",
+        "value": 46
+    },
+    {
+        "name": "insurance_policy",
+        "value": {
+            "common_base": 5100000,
+            "employee_rate": 0.105,
+            "company_rate": 0.21
+        }
+    },
+    {
+        "name": "tax_business_rate",
+        "value": 0.2
+    },
+    {
+        "name": "tax_free_barrier",
+        "value": 11000000.0
+    },
+    {
+        "name": "tax_freelancer_rate",
+        "value": 0.1
+    },
+    {
+        "name": "tax_ladder",
+        "value": [
+            {
+                "lower_bound": 0,
+                "upper_bound": 5000000,
+                "base": 0,
+                "tax_rate": 0.05
+            },
+            {
+                "lower_bound": 5000000,
+                "upper_bound": 10000000,
+                "base": 250000,
+                "tax_rate": 0.1
+            },
+            {
+                "lower_bound": 10000000,
+                "upper_bound": 18000000,
+                "base": 750000,
+                "tax_rate": 0.15
+            },
+            {
+                "lower_bound": 18000000,
+                "upper_bound": 32000000,
+                "base": 1950000,
+                "tax_rate": 0.05
+            },
+            {
+                "lower_bound": 32000000,
+                "upper_bound": 52000000,
+                "base": 4750000,
+                "tax_rate": 0.05
+            },
+            {
+                "lower_bound": 52000000,
+                "upper_bound": 80000000,
+                "base": 9750000,
+                "tax_rate": 0.3
+            },
+            {
+                "lower_bound": 80000000,
+                "upper_bound": null,
+                "base": 18150000,
+                "tax_rate": 0.35
+            }
+        ]
+    },
+    {
+        "name": "order_stream_cc",
+        "value": ["cs@phtstudio.com"]
+    },
+    {
+        "name": "paypal_payment_provider",
+        "value": "Paypal Business"
+    },
+    {
+        "name": "prepaid_default_ratio",
+        "value": 1.1
+    }
+]

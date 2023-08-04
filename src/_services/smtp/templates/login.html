@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+
+<table cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td colspan="3" height="20"></td>
+    </tr>
+    <tr>
+        <td colspan="3">
+
+            <p>
+                We're verifying a recent sign-in for <b>{{email}}</b>:
+            </p>
+
+            <table>
+                <tr>
+                    <td style="font-weight:bold">Timestamp:</td>
+                    <td>{{timestamp}}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold">IP Address:</td>
+                    <td>{{ip_address}}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold">User agent:</td>
+                    <td>{{user_agent}}</td>
+                </tr>
+            </table>
+
+            <p>
+                You're receiving this message because of a successful sign-in from a device that we didn't recognize.
+                <b>If you believe that this sign-in is suspicious,
+                    <a href="{{password_reset_url}}">please reset your password immediately.</a>
+                </b>
+            </p>
+
+            <p>
+                If you're aware of this sign-in, please disregard this notice. 
+                This can happen when you use your browser's incognito or private browsing mode or clear your cookies.
+            </p>
+
+        </td>
+    </tr>
+</table>
+
+{% endblock %}

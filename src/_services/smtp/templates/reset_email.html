@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block content %}
+
+<table cellpadding="0" cellspacing="0" width="100%" style="padding-left: 4%; padding-right: 4%">
+    <tr>
+        <td colspan="3" height="20"></td>
+    </tr>
+    
+    <tr>
+        <td colspan="3" align="left">
+            <p>Hi <b>{{first_name}}</b>,</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3" align="left">
+            <p>
+                An action to change email address has been requested for <b>{{email}}</b>.
+                Please click the following button to verify your new email address.
+            </p>
+
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="{{url}}" target="_blank">Verify email address</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3" height="20"></td>
+    </tr>
+    <tr>
+        <p>
+            This request should come from the account owner.
+            If you believe that this request is suspicious
+            <a href="{{password_reset_url}}">please reset your password immediately.</a>
+        </p>
+    </tr>
+
+</table>
+
+{% endblock %}
