@@ -1,6 +1,6 @@
 from datetime import date as dateType
 from datetime import datetime
-from typing import List, Union
+from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -10,17 +10,17 @@ from utils.schema import BaseConfig, PyObjectId
 
 class Action(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.utcnow)
-    call_type: Union[None, str]
-    ip_address: Union[None, str]
-    user_agent: Union[None, str]
-    user_id: Union[None, str]
-    user_email: Union[None, str]
-    method: Union[None, str]
-    url: Union[None, str]
-    path_params: Union[None, dict]
-    query_params: Union[None, dict]
-    body: Union[None, dict, List]
-    refs: Union[None, str, List[str]]
+    call_type: str | None 
+    ip_address: str | None 
+    user_agent: str | None 
+    user_id: str | None 
+    user_email: str | None 
+    method: str | None 
+    url: str | None 
+    path_params: dict | None 
+    query_params: dict | None 
+    body: dict | List | None 
+    refs: str | List[str] | None 
 
     class Config(BaseConfig):
         pass

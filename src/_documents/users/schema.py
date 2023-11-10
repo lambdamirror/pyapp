@@ -1,6 +1,6 @@
 import uuid
-from datetime import datetime, timedelta
-from typing import Any, List, Union
+from datetime import datetime
+from typing import Any, List
 from _services.smtp.schema import EMAIL_TOPICS
 
 from utils.schema import BaseConfig, ExtendedEnum, PyObjectId
@@ -22,26 +22,32 @@ class LoginHistory(BaseModel):
     ip_address: str
     user_agent: str
 
+    class Config(BaseConfig):
+        pass
 
 class PaymentAccount(BaseModel):
-    provider: Union[None, str]  # Paypal, Visacard, Mastercard, Bank
-    bank_name: Union[None, str]
-    account_name: Union[None, str]
-    account_number: Union[None, str]
-    paypal_email: Union[None, EmailStr]
+    provider: str | None  # Paypal, Visacard, Mastercard, Bank
+    bank_name: str | None
+    account_name: str | None
+    account_number: str | None
+    paypal_email: EmailStr | None 
 
+    class Config(BaseConfig):
+        pass
 
 class BillingInfo(BaseModel):
-    name: Union[None, str]
-    address: Union[None, str]
-    country: Union[None, str]
-    tax_id: Union[None, str]
-    phone_number: Union[None, str]
-    email: Union[None, EmailStr]
+    name: str | None 
+    address: str | None 
+    country: str | None 
+    tax_id: str | None 
+    phone_number: str | None 
+    email: EmailStr | None 
 
+    class Config(BaseConfig):
+        pass
 
 class UserCreate(BaseModel):
-    name: Union[None, str]
+    name: str | None 
     email: EmailStr
     password: str
     confirm_password: str
@@ -58,16 +64,16 @@ class UserCreate(BaseModel):
 
 
 class UserUpdate(BaseModel):
-    id: Union[None, PyObjectId]
-    name: Union[None, str]
-    display_name: Union[None, str]
-    gender: Union[None, str]
-    dob: Union[None, str]
-    address: Union[None, str]
-    phone_number: Union[None, str]
-    payment_accounts: Union[None, List[PaymentAccount]]
-    billing_info: Union[None, BillingInfo]
-    email_push_topics: Union[None, List[str]]
+    id: PyObjectId | None 
+    name: str | None 
+    display_name: str | None 
+    gender: str | None 
+    dob: str | None 
+    address: str | None 
+    phone_number: str | None 
+    payment_accounts: List[PaymentAccount] | None 
+    billing_info: BillingInfo | None 
+    email_push_topics: List[str] | None 
 
     class Config(BaseConfig):
         pass
@@ -75,21 +81,25 @@ class UserUpdate(BaseModel):
 
 class UserList(UserUpdate):
     id: PyObjectId = Field(None, alias="_id")
-    created_at: Union[None, datetime]
-    modified_at: Union[None, datetime]
-    roles: List[str]
-    email: Union[None, EmailStr]
-    login_history: Union[None, List[LoginHistory]]
-    status: Union[None, str]
-    avatar_src: Union[None, Any]
+    created_at: datetime | None 
+    modified_at: datetime | None 
+    roles: List[str] | None
+    email: EmailStr | None 
+    login_history: List[LoginHistory] | None 
+    status: str | None 
+    avatar_src: Any | None 
     email_push_topics: List[str] = Field(EMAIL_TOPICS)
-
+    
 
 class User(UserList):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     modified_at: datetime = Field(default_factory=datetime.utcnow)
-    password: Union[None, str]
+    password: str | None 
     status: str = Field('pending')
     login_history: List[LoginHistory] = Field([])
     verify_token: str = Field(default_factory=lambda: uuid.uuid4().hex)
-    expired_time: Union[None, datetime]
+
+
+class UserAccess(UserList):
+    access_role: str
+

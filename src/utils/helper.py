@@ -4,7 +4,7 @@ import urllib
 from datetime import datetime, timedelta, timezone
 from http import HTTPStatus
 from math import ceil, floor
-from typing import Any, Iterable, List, Tuple, Union
+from typing import Any, Iterable, List, Tuple
 from urllib.parse import urlparse
 
 import numpy as np
@@ -14,6 +14,7 @@ from bson import ObjectId
 from config.settings import DATE_STR_FORMAT
 from dateutil.parser import parse
 from fastapi import HTTPException
+from utils.logger import logger
 
 WEEK_IN_SECONDS = 60*60*24*7
 MONTH_IN_SECONDS = 60*60*24*30
@@ -48,7 +49,7 @@ def array_equal(a: Iterable, b: Iterable):
     return True
 
 
-def get_changed_keys(a: Union[Iterable, dict], b: Union[Iterable, dict]):
+def get_changed_keys(a: Iterable | dict, b: Iterable | dict):
     """
     Find the key with value changed when compare two objects of type dict
         - A_EXCESS : a - item = b

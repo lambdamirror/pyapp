@@ -9,7 +9,7 @@ from _documents._base.schema import ServiceBaseConfig
 from _documents._base.service import BaseService
 from _documents.users.schema import UserList
 from config.settings import MAX_QUERY_LENGTH
-from _services.mongo.service import MongoDbClient
+from _services.mongo.client import MongoDbClient
 
 from utils.logger import logger
 
@@ -31,11 +31,11 @@ class NotificationService(BaseService):
         return await super().cache_get_keys(keys)
 
 
-    async def cache_lookup(self, item_ids: Union[ObjectId, List[ObjectId]]) -> Union[NotificationList, List[NotificationList]]:
+    async def cache_lookup(self, item_ids: ObjectId | List[ObjectId]) -> NotificationList | List[NotificationList]:
         return await super().cache_lookup(item_ids)
 
 
-    async def find_by_user(self, user: UserList, skip: int = 0, limit: int = 10) -> dict:
+    async def fetch_user(self, user: UserList, skip: int = 0, limit: int = 10) -> dict:
         notifications = [ NotificationList(**x) for x in await self.find_aggregate([
             {'$unwind': '$users'},
             {'$match': {'users.user_id': user.id}},
@@ -89,7 +89,7 @@ class NotificationService(BaseService):
             query = { "users.user_id": user.id }
         else:
             raise HTTPException(status_code=400, detail=f"Mode {mode} not allowed.")
-        update_result = await self.db_client().update_many(
+        await self.db_client().update_many(
             query, { "$set": {'users.$[user].status': 'READ'} },
             array_filters=[{ "user.user_id": user.id, 'user.status': 'UNREAD' }],
             upsert=False

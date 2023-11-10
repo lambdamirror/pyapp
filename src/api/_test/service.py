@@ -43,6 +43,6 @@ class TestingService():
 
 
     async def user_clean_up(self):
-        user_ids = await user_service.find_ids(query={'email': {'$regex': '^user.*phtstudio.com$'}})
+        user_ids = await user_service.find_ids(query={'email': {'$regex': '^user.*example.com$'}})
         await self.remove_users(user_ids)
         return {}

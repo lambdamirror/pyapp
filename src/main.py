@@ -5,16 +5,15 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
-from _services.mongo.service import MongoDbClient
+from _services.mongo.client import MongoDbClient
 from api.app import api_app, shutdown_api, startup_api
 from auth.app import auth_app, startup_auth
 from config.settings import *
+from setup.service import load_dataset
 from stream.app import startup_stream, stream_app
 from webhooks.app import webhooks_app
 
 # from setup.service import load_dataset
-
-
 warnings.filterwarnings("ignore")
 
 app = FastAPI()

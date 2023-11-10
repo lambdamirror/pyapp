@@ -1,5 +1,5 @@
 import json
-from typing import Any, List, Union
+from typing import Any, List
 
 from bson import ObjectId
 from fastapi import HTTPException
@@ -57,14 +57,14 @@ class BaseService():
         return get_instance(self.config.py_master_class, item)
 
 
-    async def build_record(self, data: Union[BaseModel, List[BaseModel]], user: Union[None, UserList] = None) -> Union[BaseModel, List[BaseModel]]:
+    async def build_record(self, data: BaseModel | List[BaseModel], user: UserList | None  = None) -> BaseModel | List[BaseModel]:
         """
         It takes a list of data and a user, and returns a list of data
         
         :param data: The data to be piped to the view
-        :type data: Union[BaseModel, List[BaseModel]]
+        :type data: BaseModel | List[BaseModel]
         :param user: The user to pipe the data to. If None, it will pipe to all users
-        :type user: Union[None, UserList]
+        :type user: None | UserList
         :return: The data is being returned.
         """
         is_single = not isinstance(data, list)
@@ -72,12 +72,25 @@ class BaseService():
         return data if not is_single else data[0]
 
 
-    async def validate_create(self, data: Union[BaseCreate, List[BaseCreate]], user = None, **kwargs):
+    async def validate_ids(self, ids: List[str]):
+        """
+        This function validates a list of IDs by checking if they exist in a database and raises a
+        ValueError if any of the IDs are invalid.
+        
+        :param ids: A list of strings representing the IDs to be validated
+        :type ids: List[str]
+        """
+        valid_ids = await self.find_ids(query={'_id': {'$in': ids}})
+        if any((x not in valid_ids for x in ids if x is not None)):
+            raise ValueError(f'Invalid {self.config.document}')
+    
+
+    async def validate_create(self, data: BaseCreate | List[BaseCreate], user = None, **kwargs):
         """
         It validates the data that is passed to the create function
         
         :param data: The data to validate
-        :type data: Union[BaseCreate, List[BaseCreate]]
+        :type data: BaseCreate | List[BaseCreate]
         :param user: The user who is creating the object
         :return: The messages and the data.
         """
@@ -87,12 +100,12 @@ class BaseService():
         return messages, (data if not is_single else data[0])
 
 
-    async def validate_update(self, data: Union[BaseUpdate, List[BaseUpdate]], user = None, **kwargs):
+    async def validate_update(self, data: BaseUpdate | List[BaseUpdate], user = None, **kwargs):
         """
         It takes a list of updates, and returns a list of messages and a list of updates
         
         :param data: The data to validate
-        :type data: Union[BaseUpdate, List[BaseUpdate]]
+        :type data: BaseUpdate | List[BaseUpdate]
         :param user: The user who is making the request
         :return: A list of messages and the data.
         """
@@ -121,7 +134,7 @@ class BaseService():
         return None
        
 
-    async def find_and_pipe(self, query, select=None, sort=[], user: Union[None, UserList] = None):
+    async def find_build(self, query, select=None, sort=[], user: UserList | None = None):
         """
         It takes a query, a select, a sort, and a user, and returns a JSON object of the first item that
         matches the query, or None if no item matches the query.
@@ -131,7 +144,7 @@ class BaseService():
         :param sort: a list of tuples, where the first element is the field to sort by, and the second
         element is the direction (1 for ascending, -1 for descending)
         :param user: The user who is requesting the data
-        :type user: Union[None, UserList]
+        :type user: UserList | None
         :return: A JSON object
         """
         if (item := await self.find(query, select, sort)) is not None:
@@ -162,7 +175,7 @@ class BaseService():
         return items
     
 
-    async def find_many_and_pipe(self,query, select=None, sort=None, limit=None, skip=None, user: Union[None, UserList] = None):
+    async def find_build_many(self,query, select=None, sort=None, limit=None, skip=None, user: UserList | None = None):
         """
         > It takes a query, and returns a list of JSON object, where each dictionary is the result of
         piping the corresponding item in the query to the view
@@ -173,7 +186,7 @@ class BaseService():
         :param limit: The maximum number of documents to return
         :param skip: The number of documents to skip before returning
         :param user: The user who is requesting the data
-        :type user: Union[None, UserList]
+        :type user: None, UserList]
         :return: A list of JSON object
         """
         items = await self.find_many(query, select, sort, limit, skip)
@@ -218,6 +231,22 @@ class BaseService():
             'page': page
         }
     
+
+    async def search(self, keywords: List[SearchKeyword], skip = 0):
+        for x in keywords:
+            x.key = x.key.strip().replace('\\', '')
+            for c in ['(', ')', '[', ']']: x.key = x.key.replace(c, f"\{c}")
+        if all((x.key == '' for x in keywords)): return []
+        query = {
+            '$or': [
+                { x.field: { '$regex': x.key, '$options': 'i' } }
+                for x in keywords
+            ]
+        }
+        return await self.find_many(
+            query, limit=MAX_QUERY_LENGTH, skip=skip
+        )
+
 
     # CREATE
     async def create(self, data: BaseCreate, user: UserList = None, **kwargs) -> dict:
@@ -276,6 +305,13 @@ class BaseService():
 
 
     # UPDATE
+    async def post_update(self, id: ObjectId) -> None | dict:
+        if (updated_item := await self.find({"_id": id})) is None:
+            raise HTTPException(status_code=404, detail=f"Data not found.")
+        await self.cache_update(updated_item)
+        return json.loads((await self.build_record(updated_item)).json())
+    
+
     async def update(self, data: BaseUpdate, user: UserList = None, **kwargs):
         """
         > It validates the data, updates the database, updates the cache, and returns the updated data
@@ -297,12 +333,7 @@ class BaseService():
                 'modified_at': datetime.utcnow()
             }
         }, upsert=True)
-        if (
-            updated_item := await self.find({"_id": data.id})
-        ) is not None:
-            await self.cache_update(updated_item)
-            return json.loads((await self.build_record(updated_item)).json())
-        raise HTTPException(status_code=404, detail=f"Data not found.")
+        return await self.post_update(data.id)
 
 
     async def update_many(self, data: List[BaseUpdate], user: UserList = None, **kwargs):
@@ -341,19 +372,19 @@ class BaseService():
         return  [json.loads(x.json()) for x in await self.build_record(items)]
 
 
-    async def update_status(self, item_id: Union[str, List[str]], status: str):
+    async def update_status(self, item_id: str | List[str], status: str):
         """
         > Update the status of a record
         
         :param item_id: The ID of the item to update
-        :type item_id: Union[str, List[str]]
+        :type item_id: str | List[str]
         :param status: The status to update the record to
         :type status: str
         :return: The updated items.
         """
         is_single = not isinstance(item_id, list)
         if is_single: item_id = [item_id]
-        status = status.upper()
+        status = status.lower()
         if status not in self.config.record_status:
             raise HTTPException(status_code=401, detail="Status invalid.")
         # Update the status
@@ -411,12 +442,12 @@ class BaseService():
         return [self.transform_list(x) for x in cached_data]
 
 
-    async def cache_update(self, items: Union[List[BaseList], BaseList]):
+    async def cache_update(self, items: List[BaseList] | BaseList):
         """
         It takes a list of `BaseList` objects and updates the cache with them
         
         :param data: The data to be updated
-        :type data: Union[List[BaseList], BaseList]
+        :type data: List[BaseList], BaseList]
         """
         if not isinstance(items, list): items = [items]
         data = { 
@@ -426,13 +457,13 @@ class BaseService():
         if len(data) > 0: await RedisClient().set_keys(data)
 
 
-    async def cache_lookup(self, item_ids: Union[ObjectId, List[ObjectId]]) -> Union[BaseList, List[BaseList]]:
+    async def cache_lookup(self, item_ids: ObjectId | List[ObjectId]) -> BaseList | List[BaseList]:
         """
         It takes a list of item ids, checks if they're in the cache, and if they're not, it fetches them
         from the database and adds them to the cache
         
         :param item_ids: The list of item ids to look up
-        :type item_ids: Union[ObjectId, List[ObjectId]]
+        :type item_ids: ObjectId | List[ObjectId]
         :return: A list of BaseList objects
         """
         is_single = not isinstance(item_ids, list)

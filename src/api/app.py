@@ -38,8 +38,10 @@ async def shutdown_api():
     logger.info("Disable Schedule")
 
 
-api_app.include_router(account_router, tags=["account"], prefix="/account")
 api_app.include_router(testing_router, tags=["testing"], prefix="/testing")
+api_app.include_router(account_router, tags=["account"], prefix="/account")
+
+
 
 
 

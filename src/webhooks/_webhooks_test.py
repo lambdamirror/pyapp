@@ -10,14 +10,14 @@ from config.conftest import handle_assert_error
 
 
 @pytest.mark.asyncio
-async def test_wix_service():
+async def test_webhook_service():
     try:
-        wix()
+        webhook()
     except Exception as e:
         if isinstance(e, HTTPException): logger.error(e.detail)
         if isinstance(e, AssertionError): handle_assert_error()
 
 
-def wix():
+def webhook():
     data = {
     }

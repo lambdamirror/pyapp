@@ -2,7 +2,7 @@ import collections
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from queue import Queue
-from typing import List, Union
+from typing import Any
 
 import numpy as np
 from bson import ObjectId
@@ -25,64 +25,6 @@ class ExtendedEnum(Enum):
     @classmethod
     def list(cls):
         return list(map(lambda c: c.value, cls))
-
-
-# class OrderedSet(collections):
-
-#     def __init__(self, iterable=None):
-#         self.end = end = [] 
-#         end += [None, end, end]         # sentinel node for doubly linked list
-#         self.map = {}                   # key --> [key, prev, next]
-#         if iterable is not None:
-#             self |= iterable
-
-#     def __len__(self):
-#         return len(self.map)
-
-#     def __contains__(self, key):
-#         return key in self.map
-
-#     def add(self, key):
-#         if key not in self.map:
-#             end = self.end
-#             curr = end[1]
-#             curr[2] = end[1] = self.map[key] = [key, curr, end]
-
-#     def discard(self, key):
-#         if key in self.map:        
-#             key, prev, next = self.map.pop(key)
-#             prev[2] = next
-#             next[1] = prev
-
-#     def __iter__(self):
-#         end = self.end
-#         curr = end[2]
-#         while curr is not end:
-#             yield curr[0]
-#             curr = curr[2]
-
-#     def __reversed__(self):
-#         end = self.end
-#         curr = end[1]
-#         while curr is not end:
-#             yield curr[0]
-#             curr = curr[1]
-
-#     def pop(self, last=True):
-#         if not self:
-#             raise KeyError('set is empty')
-#         key = self.end[1][0] if last else self.end[2][0]
-#         self.discard(key)
-#         return key
-
-#     def __repr__(self):
-#         if not self:
-#             return '%s()' % (self.__class__.__name__,)
-#         return '%s(%r)' % (self.__class__.__name__, list(self))
-
-#     def __eq__(self, other):
-#         if isinstance(other, OrderedSet):
-#             return len(self) == len(other) and list(self) == list(other)
 
 
 class OrderedSetQueue(Queue):
@@ -119,18 +61,36 @@ class BaseConfig():
         np.int64: int
     }
 
+class UserActivity(BaseModel):
+    user: PyObjectId | str
+    time: datetime = Field(default_factory=datetime.utcnow)
 
-class CurrencyAmount(BaseModel):
-    user: Union[None, PyObjectId]
-    description: Union[None, str]
-    amount: float = Field(0)
-    currency: Union[None, str]
-    converted_amount: Union[None, float]
+    class Config(BaseConfig):
+        pass
+
+class Quote(BaseModel):
+    amount: float | None
+    currency: str | None
+    converted_amount: float | None
     
     class Config(BaseConfig):
         pass
 
 
-class Extra(CurrencyAmount):
+class UserQuote(BaseModel):
+    user: PyObjectId | None
+    description: str | None
+
+    class Config(BaseConfig):
+        pass
+
+class Extra(UserQuote):
     type: str
 
+
+class KeyValue(BaseModel):
+    key: str
+    value: Any
+
+    class Config(BaseConfig):
+        pass

@@ -2,9 +2,9 @@ import json
 from pathlib import Path
 from typing import List, Dict
 from pydantic import BaseModel
-from datetime import datetime, timedelta
 from config.settings import MAX_QUERY_LENGTH
-from _services.mongo.service import MongoDbClient
+from _services.mongo.client import MongoDbClient
+from _documents.settings.schema import Setting
 
 from utils.logger import logger
 
@@ -31,6 +31,7 @@ async def filter_missing(name: str, keys: str, data: List[dict]):
 async def load_dataset():
     document_schemas: Dict[str, BaseModel] = {
         # CODE HERE
+        # "settings": Setting
     }
     data_path = f"{Path(__file__).parent.resolve()}/data/"
 
@@ -49,15 +50,12 @@ async def load_dataset():
             ) is None:
                 should_load = True
             else:
-                if name == 'api_integration':
-                    data = await filter_missing(name, ['name'], data)
+                if name == 'settings':
+                    data = await filter_missing(name, ['key'], data)
                     should_load = len(data) > 0
-                if name == 'billing_account':
-                    data = await filter_missing(name, ['provider', 'currency'], data)
-                    should_load = len(data) > 0
-                if name == 'role_parameter':
-                    data = await filter_missing(name, ['role', 'name'], data)
-                    should_load = len(data) > 0
+                # if name == 'billing_account':
+                #     data = await filter_missing(name, ['provider', 'currency'], data)
+                #     should_load = len(data) > 0
             if not should_load: continue
             logger.info(data)
             results = await MongoDbClient().get_docs(name).insert_many([

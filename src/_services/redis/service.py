@@ -1,7 +1,7 @@
 
 import json
 from datetime import datetime
-from typing import Dict, List, Union
+from typing import Dict, List
 
 import aioredis
 
@@ -53,7 +53,7 @@ class RedisClient():
         })
 
 
-    async def get_keys(self, keys: Union[str, List[str]]):
+    async def get_keys(self, keys: str | List[str]):
         is_single = not isinstance(keys, list)
         if is_single:
             data: str = await self.redis.get(keys)

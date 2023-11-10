@@ -14,7 +14,7 @@ from _documents.users.service import user_service
 from auth.jwt import CREDENTIALS_EXCEPTION, create_token
 from auth.oauth.service import verify_token
 from config.settings import *
-from _services.mongo.service import MongoDbClient
+from _services.mongo.client import MongoDbClient
 
 from _services.redis.service import RedisClient
 
@@ -41,17 +41,17 @@ oauth.register(
 REDIRECT_URL = f'{API_URL}/auth/google/redirect'
 
 
-async def create_new_user(background_tasks: BackgroundTasks, 
-                          email: str, name: str = None, client_id = None):
-    roles = [Role.USER.value]
+async def create_new_user(background_tasks: BackgroundTasks, role: str,
+                          email: str, name: str = None):
+    if role is None:
+        raise CREDENTIALS_EXCEPTION
     user_data =  User(
         email=email, name=name, 
-        client_id=client_id, roles=roles,
-        status='ACTIVE'
+        roles=[role],
+        status='active'
     )
     insert_result = await MongoDbClient().get_docs('user').insert_one(user_data.dict())
     new_user = await user_service.find({"_id": insert_result.inserted_id})
-
     await user_service.cache_update(new_user)
     return new_user
 
@@ -67,9 +67,9 @@ async def authorize_redirect(request: Request, client_id: str):
 
 
 async def auth(request: Request, background_tasks: BackgroundTasks):
-    client_id = None
+    role = None
     for key in request.session:
-        if (client_id := await RedisClient().get_cache(key)) is not None:
+        if (role := await RedisClient().get_cache(key)) is not None:
             await RedisClient().delete_cache(key)
             break
     try:
@@ -86,12 +86,12 @@ async def auth(request: Request, background_tasks: BackgroundTasks):
         'email': user_data['email']
     })
     if authorized_user is None:
-        authorized_user = await create_new_user(background_tasks,
-                                                user_data['email'], user_data.get('name'), client_id)
+        authorized_user = await create_new_user(background_tasks, role,
+                                                user_data['email'], user_data.get('name'))
         background_tasks.add_task(send_template,
             "welcome", 
             EmailSchema(**{
-                "subject": f"Welcome to PhtCreative Studio",
+                "subject": f"Welcome to PyApp",
                 "recipients": [authorized_user.email],
                 "cc": [],
             }),

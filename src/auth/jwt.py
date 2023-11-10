@@ -37,24 +37,20 @@ def create_access_token(*, data: dict, expires_delta: timedelta = None):
 
 
 # Create token for an email
-def create_token(user: UserList):
+def create_token(role: str, user: UserList):
     access_token_expires = timedelta(minutes=API_ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(data={
         'id': str(user.id), 
         'email': user.email,
-        'short_name': user.short_name,
-        'roles': user.roles,
+        'name': user.name,
+        'role': role,
     }, expires_delta=access_token_expires)
     return access_token
 
 
-# Decode token for user_id
-def decode_user_id(token: str):
-    try:
-        payload = jwt.decode(token, API_SECRET_KEY, algorithms=[API_ALGORITHM])
-        user_id: str = payload.get('id')
-        if user_id is None:
-            raise CREDENTIALS_EXCEPTION
-        return user_id
-    except jwt.PyJWTError:
-        raise CREDENTIALS_EXCEPTION
+# Decode token
+def decode_token(token: str, key = 'id'):
+    if token is None: return None
+    payload = jwt.decode(token, API_SECRET_KEY, algorithms=[API_ALGORITHM])
+    return payload.get(key)
+

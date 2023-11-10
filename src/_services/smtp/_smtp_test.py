@@ -14,12 +14,12 @@ random_id = uuid.uuid4().hex[-5:]
 render_args = {
     "registration": {
         "subject": f"Verify your email",
-        "url": "https://phtstudio.com",
+        "url": "https://example.com",
         "first_name": "First Name",
     },
     "welcome": {
-        "subject": f"Welcome to PhtCreative Studio [{uuid.uuid4().hex[-5:]}]",
-        "url": "https://phtstudio.com",
+        "subject": f"Welcome to PyApp [{uuid.uuid4().hex[-5:]}]",
+        "url": "https://example.com",
         "first_name": "First Name",
     },
     "login": {
@@ -31,7 +31,7 @@ render_args = {
         "password_reset_url": "https://example.com"
     },
     "dba_initialization": {
-        "subject": f"You are the first Database Admin at PhtCreative Studio [{uuid.uuid4().hex[-5:]}]",
+        "subject": f"You are the first Database Admin at PyApp [{uuid.uuid4().hex[-5:]}]",
         "email": CONTACT_EMAIL,
         "username": CONTACT_EMAIL,
         "password": uuid.uuid4().hex,
@@ -47,7 +47,7 @@ render_args = {
     "reset_password": {
         "subject": f"Password changed for your account [{uuid.uuid4().hex[-5:]}]",
         "first_name": "First Name",
-        "email": "ceo@phtcreative.com",
+        "email": "mail@example.com",
         "url": "https://example.com",
         "contact_email": CONTACT_EMAIL,
     },

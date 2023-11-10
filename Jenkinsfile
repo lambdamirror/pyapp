@@ -20,7 +20,7 @@ pipeline {
                     export API_ENV=test
                     [ -d "deploy" ] && rm -rf deploy
                     echo $GITHUB_TOKEN
-                    git clone -b ${API_ENV} https://${GITHUB_TOKEN}@github.com/lambdamirror/pht-app-deploy.git deploy
+                    git clone -b ${API_ENV} {GITHUB_URL} deploy
                     cd ./deploy
                     docker-compose down
                     docker-compose --env-file ./config/.env.${API_ENV} up -d --force-recreate --build

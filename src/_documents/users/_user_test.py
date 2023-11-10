@@ -18,8 +18,9 @@ async def caching(user_service: UserService):
     users = await user_service.cache_get_all()
     assert len(users) == 0
 
-    limit = 100
-    users = await user_service.fetch(limit=limit)
+    limit = 1
+    out: dict = await user_service.fetch(limit=limit)
+    users = out.get('data')
     assert len(users) == limit
 
     users = await user_service.cache_get_all()
