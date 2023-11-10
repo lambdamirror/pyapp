@@ -9,10 +9,8 @@ from _documents.notifications.schema import *
 from _documents.notifications.service import NotificationService
 from _documents.users.schema import *
 from _documents.users.service import UserService
-from _services.mongo.service import MongoDbClient
+from _services.mongo.client import MongoDbClient
 from utils.logger import logger
-
-# import pytest
 
 class RequestClone(BaseModel):
     query_params: dict
@@ -53,8 +51,9 @@ async def notification_service() -> NotificationService:
 @fixture(scope=SCOPE)
 async def user_service() -> UserService:
     service = UserService(ServiceBaseConfig(**{
-        "document": "user",
+        "document": "users",
         "py_list_class": UserList,
+        "py_master_class": User,
         "mongodb_client": MongoDbClient()
     }))
     await service.cache_clear()

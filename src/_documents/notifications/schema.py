@@ -1,7 +1,7 @@
 from typing import List
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import List, Union
+from typing import List
 
 from _documents.users.schema import Role
 from utils.schema import BaseConfig, PyObjectId
@@ -26,16 +26,16 @@ class NotificationCreate(BaseModel):
     reference_id: PyObjectId
     title: str
     message: str
-    image_url: Union[None, str]
-    view_url: Union[None, str]
+    image_url: str | None 
+    view_url: str | None 
 
 
 class NotificationList(NotificationCreate):
     id: PyObjectId = Field(None, alias='_id')
     users: List[UserStatus] = Field([])
-    user: Union[None, PyObjectId]
-    sender: Union[None, PyObjectId]
-    status: Union[None, str]
+    user: PyObjectId | None 
+    sender: PyObjectId | None 
+    status: str | None 
 
     class Config(BaseConfig):
         pass

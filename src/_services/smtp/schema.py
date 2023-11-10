@@ -1,7 +1,7 @@
 from typing import List
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import List, Union
+from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -17,4 +17,4 @@ class EmailSchema(BaseModel):
     subject: str
     recipients: List[EmailStr] = Field([])
     cc: List[EmailStr] = Field([])
-    body: Union[None, str]
+    body: str | None

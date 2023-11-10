@@ -324,10 +324,6 @@ class S3BaseClient():
         image.copy().save(display, self.__get_safe_ext(extension))
         display.seek(0)
 
-        # Build watermarked version
-        watermark = Image.open(rf"{pathlib.Path(__file__).parent.resolve()}/phtstudio.com-{size[0]}x{size[1]}.png")
-        image.paste(watermark, box=(0, 0), mask=watermark)
-
         preview = BytesIO()
         image.save(preview, self.__get_safe_ext(extension))
         preview.seek(0)

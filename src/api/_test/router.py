@@ -2,7 +2,6 @@ from typing import Any, List
 
 from _documents.users.schema import *
 from _documents.users.service import user_service
-from _documents.logs.service import MongoDbLogger
 from utils.guard import RoleGuard
 from utils.logger import logger
 from fastapi import APIRouter, BackgroundTasks, Body, Depends, Request

@@ -12,7 +12,7 @@ def startup_stream():
     pass
 
 @stream_app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket, user: UserList = Depends(user_service.get_user_ws)):
+async def websocket_endpoint(websocket: WebSocket, user: UserList = Depends(user_service.parse_token_query)):
     if user is None: 
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
         return

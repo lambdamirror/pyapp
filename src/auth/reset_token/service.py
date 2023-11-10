@@ -7,7 +7,7 @@ from _documents.users.schema import UserList
 from _documents.users.service import user_service
 from _services.smtp.schema import EmailSchema
 from _services.smtp.service import send_template
-from _services.mongo.service import MongoDbClient
+from _services.mongo.client import MongoDbClient
 
 from bson import ObjectId
 from config.settings import *

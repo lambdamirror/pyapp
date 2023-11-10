@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 
 from utils.schema import BaseConfig, PyObjectId
 from pydantic import BaseModel, Field

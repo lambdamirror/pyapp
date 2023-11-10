@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "pht-app"
+name = "pyapp"
 version = "0.1.0"
-description = "api for pht-app"
+description = "api for pyapp"
 authors = ["lambdamirror"]
 readme = "README.md"
-packages = [{include = "pht_app"}]
+packages = [{include = "pyapp"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

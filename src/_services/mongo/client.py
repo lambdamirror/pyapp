@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from config.settings import *
-from _documents.users.schema import Role
+from utils.logger import logger
+
 
 class MongoDbClient():
     def __new__(cls):
@@ -10,9 +11,8 @@ class MongoDbClient():
     
     def __init__(self):
         self.conn = AsyncIOMotorClient(MONGODB_CONN_STR)
-        self.users = self.conn[USERS_DB_NAME]
-        self.accounts = self.conn[ACCOUNTS_DB_NAME]
-        self.settings = self.conn[SETTINGS_DB_NAME]
+        self.accounts = self.conn['Accounts']
+        self.settings = self.conn['Settings']
 
     def disconnect(self):
         self.conn.close()
@@ -27,11 +27,9 @@ class MongoDbClient():
             raise Exception("Unable to connect to the server.")
     
     def get_docs(self, name: str):
-        if name in Role.list():
-            return self.users[name]
-        if name in ['reset-token', 'notification']:
+        if name in ['users', 'reset-token', 'notification', 'logs']:
             return self.accounts[name]
-        
+        if name in ['settings']:
+            return self.settings[name]
         return None
     
-
